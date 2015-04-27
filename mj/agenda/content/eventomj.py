@@ -3,20 +3,19 @@
 """
 
 from zope.interface import implements
+
 from AccessControl import ClassSecurityInfo
+
 from Products.Archetypes import atapi
 from Products.Archetypes.utils import DisplayList
-from Products.ATContentTypes.content import base
-
 from Products.ATContentTypes.content.event import ATEventSchema
 from Products.ATContentTypes.content.file import ATFileSchema
 from Products.ATContentTypes.interfaces import IATEvent, IATFile
+from Products.ATContentTypes.content.base import ATCTContent
+from Products.ATContentTypes.content import schemata
+from Products.ATContentTypes.lib.calendarsupport import CalendarSupportMixin
 
 from Products.CMFCore.utils import getToolByName
-
-from Products.ATContentTypes.content import schemata
-
-from plone.app.blob.field import BlobField, ImageField
 
 # -*- Message Factory Imported Here -*-
 from mj.agenda import agendaMessageFactory as _
@@ -28,7 +27,7 @@ ATFileSchema['file'].primary = False
 ATFileSchema['file'].schemata = 'Arquivo'
 ATFileSchema['file'].required = False
 
-MJEventoSchema = ATEventSchema.copy() + ATFileSchema.copy() + atapi.Schema((
+MJEventoSchema = ATFileSchema.copy() + ATEventSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
     atapi.StringField(
@@ -49,7 +48,7 @@ MJEventoSchema = ATEventSchema.copy() + ATFileSchema.copy() + atapi.Schema((
 schemata.finalizeATCTSchema(MJEventoSchema, moveDiscussion=False)
 
 
-class MJEvento(base.ATCTContent):
+class MJEvento(ATCTContent, CalendarSupportMixin):
     """
     `"""
     implements(IMJEvento, IATEvent, IATFile)
