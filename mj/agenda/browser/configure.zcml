@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="mj.agenda">
+
+  <include package="plone.app.contentmenu" />
+
+    <browser:page
+        name="list_eventos"
+        for="*"
+        class=".list_eventos.ListEventosView"
+        template="templates/list_eventos.pt"
+        permission="zope2.View"
+    />
+
+</configure>

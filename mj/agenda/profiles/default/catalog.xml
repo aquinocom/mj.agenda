@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+    <index name="cor_categoria" meta_type="FieldIndex">
+        <indexed_attr value="cor_categoria"/>
+    </index>
+    <index name="event_categoria" meta_type="FieldIndex">
+        <indexed_attr value="event_categoria"/>
+    </index>
+    <index name="attendees" meta_type="FieldIndex">
+        <indexed_attr value="attendees"/>
+    </index>    
+    <column value="cor_categoria"/>
+    <column value="event_categoria"/>
+    <column value="attendees"/>
+</object>

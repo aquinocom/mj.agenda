@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="mj.agenda">
+    <head>
+    </head>
+    <body>
+        <tal:block metal:fill-slot="main"
+            tal:define="eventos view/getEventos">
+            <div class="dados-agenda">      
+                <img width="64" height="63" class="brasao-agenda" title="Agenda de Presidenta Dilma Rousseff para 17/04/2015" alt="Agenda de Presidenta Dilma Rousseff para 17/04/2015" src="http://www2.planalto.gov.br/acompanhe-o-planalto/agenda/agenda-da-presidenta/2015-04-17/@@images/5b4af1aa-7446-47d1-b38e-ea2d608d342d.jpeg">
+                <h2 class="agenda-orgao">Ministério da Justiça</h2>
+                <h3 class="agenda-autoridade">Ministro José Eduardo Cardozo</h3>
+                <span class="agenda-dia" tal:content="view/getDate">
+                        Sexta, 17 de Abril de 2015
+                </span>
+            </div>
+            <ul class="list-compromissos" tal:condition="not:eventos">
+              <li class="sem-compromisso item-compromisso">
+                  <span
+                    i18n:translate="label_agendadiaria_nao_criada">
+                    Atualmente n&atilde;o existem compromissos agendados.
+                  </span>
+              </li>
+            </ul>
+            <ul class="list-compromissos">
+                <tal:block tal:repeat="item eventos">
+                    <li class="item-compromisso">
+                        <div class="comprimisso-horarios" tal:attributes="style python:'background-color: ' + item.event_categoria">
+                            <time class="horario comprimisso-inicio" 
+                                datetime="2015-04-22 11:00" 
+                                tal:content="python:item.start.strftime('%Hh%M')">11h00</time>
+                        </div>
+                        <div class="comprimisso-dados">
+                            <h4 class="comprimisso-titulo" tal:content="item/Title">Eduardo Braga</h4>
+                            <p class="comprimisso-participantes">
+                                <tal:block tal:repeat="pa item/attendees">
+                                    <span tal:replace="pa"/><br/>   
+                                </tal:block>
+                            </p>
+                            <p class="comprimisso-local">
+                                <label>Local:</label> Ministério da Justiça
+                            </p>
+                            <span class="download-compromisso">
+                                <a class="add-agenda vcal"
+                                    tal:attributes="href string:${item/getURL}/vcal_view">VCAL</a> Adicionar ao meu calendário
+                            </span>
+                        </div>
+                    </li>    
+                </tal:block>
+            </ul>
+        </tal:block>
+    </body>
+</html>
