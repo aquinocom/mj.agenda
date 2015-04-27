@@ -12,6 +12,14 @@
   <include package=".content" />
   <include package=".portlets" />
   <include file="skins.zcml" />
+
+  <!--extender do vocabulary manager -->
+  <include package="archetypes.schemaextender" />
+  <adapter factory=".extender.VocabularioExtender"
+           provides="archetypes.schemaextender.interfaces.ISchemaExtender"
+           for="*"/>
+   
+  
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"

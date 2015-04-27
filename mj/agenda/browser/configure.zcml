@@ -5,6 +5,10 @@
 
   <include package="plone.app.contentmenu" />
 
+    <browser:resource
+        name="color.js"
+        file="js/color.js" />
+    
     <browser:page
         name="list_eventos"
         for="*"
