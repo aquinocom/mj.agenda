@@ -55,6 +55,9 @@ setup(name='mj.agenda',
       include_package_data=True,
       zip_safe=False,
       install_requires=['setuptools',
+                        'collective.z3cform.colorpicker',
+                         'Products.SmartColorWidget',
+                         'Products.ATVocabularyManager'
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,
