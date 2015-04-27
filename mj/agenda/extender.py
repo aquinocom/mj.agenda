@@ -15,11 +15,12 @@ class VocabularioExtender(object):
     implements(ISchemaExtender)
 
     fields = [
-        MJStringField("corCategoria",
+        MJStringField("cor_categoria",
                       required=True,
                       searchable=False,
-                      widget=StringWidget(label=_(u"Cor da etiqueta"),
-                                          helper_js=('++resource++color.js',),),
+                      widget=StringWidget(label=_(u"Cor da categoria"),
+                                          helper_js=('++resource++color.js',),
+                                          size=8,),
                       ),
         ]
 
@@ -28,7 +29,7 @@ class VocabularioExtender(object):
 
     def getFields(self):
         portal_type = getattr(self.context, 'portal_type', None)
-        if portal_type == 'TreeVocabularyTerm':
+        if portal_type == 'SimpleVocabularyTerm':
             return self.fields
         else:
             return []

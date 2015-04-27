@@ -61,15 +61,17 @@ class MJEvento(ATCTContent, CalendarSupportMixin):
 
     def getCategoria(self):
         catalog = getToolByName(self, 'portal_catalog')
-        categorias = catalog(portal_type='MJCategoria',
+        categorias = catalog(portal_type='SimpleVocabularyTerm',
                            sort_on='id',)
         listCategorias = DisplayList()
         if categorias:
             listCategorias.add('', '')
             for i in categorias:
                 categoria = i.Title
-                cor = i.cor_categoria
-                listCategorias.add(cor, categoria)
+                id = i.id
+                #cor = i.cor_categoria
+                #listCategorias.add(cor, categoria)
+                listCategorias.add(id, categoria)
         return listCategorias
 
 

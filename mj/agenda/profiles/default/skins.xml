@@ -1,14 +1,33 @@
 <?xml version="1.0"?>
 <object name="portal_skins" allow_any="False" cookie_persistence="False"
    default_skin="Sunburst Theme">
+    <object name="mj_agenda_css"
+        meta_type="Filesystem Directory View"
+        directory="mj.agenda:skins/css" />
+    <object name="mj_agenda_img"
+        meta_type="Filesystem Directory View"
+        directory="mj.agenda:skins/img" />
+    <object name="mj_agenda_js"
+        meta_type="Filesystem Directory View"
+        directory="mj.agenda:skins/js" />
     <object name="mj_agenda_templates"
         meta_type="Filesystem Directory View"
         directory="mj.agenda:skins/templates" />
+
     <skin-path
         name="Sunburst Theme"
         based-on="Sunburst Theme">
         <layer
-            name="mj_agenda_templates"
+            name="mj_agenda_css"
             insert-after="custom"/>
+        <layer
+            name="mj_agenda_img"
+            insert-after="mj_agenda_css"/>
+        <layer
+            name="mj_agenda_js"
+            insert-after="mj_agenda_img"/>
+        <layer
+            name="mj_agenda_templates"
+            insert-after="mj_agenda_js"/>
     </skin-path>
 </object>

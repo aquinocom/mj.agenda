@@ -5,16 +5,9 @@
 from zope.interface import implements
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes import atapi
-from Products.Archetypes.utils import DisplayList
 from Products.ATContentTypes.content import base
-
 from Products.ATContentTypes.content.base import ATCTContent
-
 from Products.ATContentTypes.content import schemata
-
-from plone.app.blob.field import BlobField, ImageField
-from Products.SmartColorWidget.Widget import SmartColorWidget
-
 
 # -*- Message Factory Imported Here -*-
 from mj.agenda import agendaMessageFactory as _
@@ -28,9 +21,10 @@ MJCategoriaSchema = ATCTContent.schema.copy() + atapi.Schema((
         required=False,
         searchable=True,
         default='#DFDFDF',
-        widget=SmartColorWidget(
+        widget=atapi.StringWidget(
             label=_(u"Cor da categoria"),
-            description=_(u"Hexadecimal da cor"),)
+            description=_(u"Hexadecimal da cor"),
+            size=7,)
     ),
 ))
 
@@ -48,6 +42,6 @@ class MJCategoria(base.ATCTContent):
     portal_type = 'MJCategoria'
     schema = MJCategoriaSchema
 
-
+    security = ClassSecurityInfo()
 
 atapi.registerType(MJCategoria, PROJECTNAME)

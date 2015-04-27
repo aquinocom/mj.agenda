@@ -10,3 +10,8 @@ class IMJEvento(Interface):
 class IMJCategoria(Interface):
     """Marker interface
     """
+
+
+class IMJMetadados(Interface):
+    """Marker interface
+    """

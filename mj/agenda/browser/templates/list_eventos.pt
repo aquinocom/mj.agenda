@@ -28,8 +28,10 @@
             </ul>
             <ul class="list-compromissos">
                 <tal:block tal:repeat="item eventos">
-                    <li class="item-compromisso">
-                        <div class="comprimisso-horarios" tal:attributes="style python:'background-color: ' + item.event_categoria">
+                    <li class="item-compromisso"
+                        tal:define="categoria python:item.event_categoria;
+                                    cor python:context.getColor(categoria);">
+                        <div class="comprimisso-horarios" tal:attributes="style python:'background-color:' + cor">
                             <time class="horario comprimisso-inicio" 
                                 datetime="2015-04-22 11:00" 
                                 tal:content="python:item.start.strftime('%Hh%M')">11h00</time>
@@ -46,7 +48,7 @@
                             </p>
                             <span class="download-compromisso">
                                 <a class="add-agenda vcal"
-                                    tal:attributes="href string:${item/getURL}/vcal_view">VCAL</a> Adicionar ao meu calendário
+                                    tal:attributes="href string:${item/getURL}/ics_view">ICS</a> Adicionar ao meu calendário
                             </span>
                         </div>
                     </li>    

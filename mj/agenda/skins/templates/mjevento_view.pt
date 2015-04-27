@@ -141,8 +141,9 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr >
-                                <td colspan="3" tal:attributes="style python:'background-color: ' + context.event_categoria">
+                            <tr tal:define="categoria python:context.event_categoria;
+                                            cor python:context.getColor(categoria);">
+                                <td colspan="3" tal:attributes="style python:'background-color: ' + cor">
                                     &nbsp;
                                 </td>
                             </tr>
