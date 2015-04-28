@@ -48,7 +48,7 @@
                             </p>
                             <span class="download-compromisso">
                                 <a class="add-agenda vcal"
-                                    tal:attributes="href string:${item/getURL}/ics_view">ICS</a> Adicionar ao meu calendário
+                                    tal:attributes="href string:${item/getURL}/vcs_view">ICS</a> Adicionar ao meu calendário
                             </span>
                         </div>
                     </li>    
