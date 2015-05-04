@@ -9,12 +9,11 @@ from AccessControl import ClassSecurityInfo
 from Products.Archetypes import atapi
 from Products.Archetypes.utils import DisplayList
 from Products.ATContentTypes.content.event import ATEventSchema
-from Products.ATContentTypes.content.file import ATFileSchema
-from Products.ATContentTypes.interfaces import IATEvent, IATFile
-from Products.ATContentTypes.content.base import ATCTContent
+from Products.ATContentTypes.interfaces import IATEvent
+from Products.ATContentTypes.interfaces import IATFolder
+from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content import schemata
 from Products.ATContentTypes.lib.calendarsupport import CalendarSupportMixin
-
 from Products.CMFCore.utils import getToolByName
 
 # -*- Message Factory Imported Here -*-
@@ -23,11 +22,8 @@ from mj.agenda import agendaMessageFactory as _
 from mj.agenda.interfaces.interfaces import IMJEvento
 from mj.agenda.config import PROJECTNAME
 
-ATFileSchema['file'].primary = False
-ATFileSchema['file'].schemata = 'Arquivo'
-ATFileSchema['file'].required = False
 
-MJEventoSchema = ATFileSchema.copy() + ATEventSchema.copy() + atapi.Schema((
+MJEventoSchema = ATFolder.schema.copy() + ATEventSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
     atapi.StringField(
@@ -48,10 +44,11 @@ MJEventoSchema = ATFileSchema.copy() + ATEventSchema.copy() + atapi.Schema((
 schemata.finalizeATCTSchema(MJEventoSchema, moveDiscussion=False)
 
 
-class MJEvento(ATCTContent, CalendarSupportMixin):
+class MJEvento(ATFolder, CalendarSupportMixin):
     """
-    `"""
-    implements(IMJEvento, IATEvent, IATFile)
+    """
+
+    implements(IMJEvento, IATFolder, IATEvent)
 
     meta_type = "MJEvento"
     portal_type = 'MJEvento'
