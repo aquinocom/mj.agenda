@@ -7,7 +7,7 @@ class IMJEvento(Interface):
     """
 
 
-class IMJCategoria(Interface):
+class IMJFileEvento(Interface):
     """Marker interface
     """
 
