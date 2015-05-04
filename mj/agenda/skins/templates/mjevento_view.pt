@@ -12,6 +12,13 @@
                                             getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
                                             templateId template/getId;
                                             toLocalizedTime nocall:context/@@plone/toLocalizedTime;">
+                <style>
+                    #div_categoria{
+                        float: left;
+                        width: 15px;
+                        height: 15px;
+                    } 
+                </style>
                 <div class="eventDetails vcard">
                     <table class="vertical listing"
                         summary="Event details" i18n:attributes="summary summary_event_details;">
@@ -141,10 +148,36 @@
                                     </a>
                                 </td>
                             </tr>
+                            <tal:foldercontents tal:define="contentFilter contentFilter|request/contentFilter|nothing;
+                                                        contentFilter python:contentFilter and dict(contentFilter) or {};
+                                                        folderContents folderContents|nothing; folderContents python:folderContents and context.queryCatalog(batch=True, **contentFilter) or context.getFolderContents(contentFilter, batch=True);
+                                                        plone_view context/@@plone;"
+                                            tal:condition="folderContents">
+                                <tr>
+                                    <th colspan="3" style="text-align: center;">Arquivos</th>
+                                </tr>
+                                <tr style="background: none;" >
+                                    <td colspan="3" style="background: none;">
+                                        <ul style="list-style-type: none; margin-left: 0.8em;">
+                                            <tal:block tal:repeat="item folderContents">
+                                                <li tal:define="item_icon python:plone_view.getIcon(item);">
+                                                    <a tal:attributes="href item/getURL">
+                                                        <img tal:replace="structure item_icon/html_tag" />
+                                                        <span tal:replace="item/Title"/>
+                                                    </a>
+                                                </li>
+                                            </tal:block>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tal:foldercontents>
                             <tr tal:define="categoria python:context.event_categoria;
-                                            cor python:context.getColor(categoria);">
-                                <td colspan="3" tal:attributes="style python:'background-color: ' + cor">
-                                    &nbsp;
+                                            categ python:context.getColor(categoria);
+                                            cor python:categ['cor'];
+                                            titulo python:categ['titulo'];"
+                                style="background: none;">
+                                <td colspan="3" style="background: none;">
+                                    <div id="div_categoria" tal:attributes="style python:'background-color: ' + cor"></div>&nbsp;<span tal:replace="titulo"/>
                                 </td>
                             </tr>
                         </tbody>

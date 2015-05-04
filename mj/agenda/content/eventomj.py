@@ -59,7 +59,8 @@ class MJEvento(ATFolder, CalendarSupportMixin):
     def getCategoria(self):
         catalog = getToolByName(self, 'portal_catalog')
         categorias = catalog(portal_type='SimpleVocabularyTerm',
-                           sort_on='id',)
+                             sort_on='id',
+                             review_state='published')
         listCategorias = DisplayList()
         if categorias:
             listCategorias.add('', '')

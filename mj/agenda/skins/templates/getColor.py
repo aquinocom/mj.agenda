@@ -12,7 +12,9 @@ catalog = getToolByName(context, 'portal_catalog')
 categorias = catalog(portal_type='SimpleVocabularyTerm',
                      id=id,)
 if categorias:
-    cor = '#' + categorias[0].cor_categoria
-    return cor
+    categoria = categorias[0]
+    cor = '#' + categoria.cor_categoria
+    titulo = categoria.Title
+    return {'titulo': titulo, 'cor': cor}
 else:
-    return 'transparent'
+    return {'titulo': '', 'cor': 'transparent'}

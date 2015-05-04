@@ -13,7 +13,11 @@ from Products.CMFCore.utils import getToolByName
 from plone.memoize.instance import memoize
 from plone.registry.interfaces import IRegistry
 from DateTime import DateTime
-
+import datetime
+from zope.i18nmessageid import MessageFactory
+from zope.component import queryUtility
+from zope.i18n.interfaces import ITranslationDomain
+from mj.agenda import agendaMessageFactory as _
 #Libs imports
 
 
@@ -38,4 +42,23 @@ class ListEventosView(BrowserView):
         return eventos
 
     def getDate(self):
-     	return DateTime().strftime('%A, %d de %B de %Y')
+        lt = getToolByName(self, 'portal_languages')
+        idioma = lt.getDefaultLanguage()
+
+        if idioma == 'pt-br':
+            idioma = 'pt_BR'
+
+        data = datetime.datetime.today()
+
+        translation = getToolByName(self.context, 'translation_service')
+        PLMF = MessageFactory('plonelocales')
+        util = queryUtility(ITranslationDomain, 'plonelocales')
+
+        weekdayName = PLMF(translation.day_msgid(data.isoweekday()))
+        weekday = util.translate(weekdayName, target_language=idioma)
+
+        monthName = PLMF(translation.month_msgid(data.month))
+        month = util.translate(monthName, target_language=idioma)
+
+        return weekday + ', ' + str(data.day) + ' de ' +  month + ' de ' + str(data.year)
+

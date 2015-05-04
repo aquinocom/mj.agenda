@@ -10,6 +10,13 @@
     <body>
         <tal:block metal:fill-slot="main"
             tal:define="eventos view/getEventos">
+            <style>
+                #div_categoria{
+                    float: left;
+                    width: 15px;
+                    height: 15px;
+                } 
+            </style>
             <div class="dados-agenda">      
                 <img width="64" height="63" class="brasao-agenda" title="Agenda de Presidenta Dilma Rousseff para 17/04/2015" alt="Agenda de Presidenta Dilma Rousseff para 17/04/2015" src="http://www2.planalto.gov.br/acompanhe-o-planalto/agenda/agenda-da-presidenta/2015-04-17/@@images/5b4af1aa-7446-47d1-b38e-ea2d608d342d.jpeg">
                 <h2 class="agenda-orgao">Ministério da Justiça</h2>
@@ -30,8 +37,10 @@
                 <tal:block tal:repeat="item eventos">
                     <li class="item-compromisso"
                         tal:define="categoria python:item.event_categoria;
-                                    cor python:context.getColor(categoria);">
-                        <div class="comprimisso-horarios" tal:attributes="style python:'background-color:' + cor">
+                                    categ python:context.getColor(categoria);
+                                    cor python:categ['cor'];
+                                    titulo python:categ['titulo'];">
+                        <div class="comprimisso-horarios">
                             <time class="horario comprimisso-inicio" 
                                 datetime="2015-04-22 11:00" 
                                 tal:content="python:item.start.strftime('%Hh%M')">11h00</time>
@@ -46,6 +55,10 @@
                             <p class="comprimisso-local">
                                 <label>Local:</label> Ministério da Justiça
                             </p>
+                            <p>
+                                <div id="div_categoria" tal:attributes="style python:'background-color: ' + cor"></div>&nbsp;<span tal:replace="titulo"/>
+                            </p>
+                            <div style="clear: both;"></div>
                             <span class="download-compromisso">
                                 <a class="add-agenda vcal"
                                     tal:attributes="href string:${item/getURL}/vcs_view">ICS</a> Adicionar ao meu calendário
