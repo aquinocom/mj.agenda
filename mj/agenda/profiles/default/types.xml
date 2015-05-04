@@ -10,6 +10,4 @@
   <!-- -*- extra stuff goes here -*- -->
   <object name="MJEvento"
     meta_type="Factory-based Type Information with dynamic views" />
-  <object name="MJCategoria"
-    meta_type="Factory-based Type Information with dynamic views" />
 </object>

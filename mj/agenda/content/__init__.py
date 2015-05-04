@@ -1,3 +1,2 @@
 #
 import eventomj
-import categoriamj

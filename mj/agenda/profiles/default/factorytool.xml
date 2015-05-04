@@ -11,6 +11,5 @@
   <factorytypes>
     <!-- -*- extra stuff goes here -*- -->
     <type portal_type="MJEvento"/>
-    <type portal_type="MJCategoria"/>
   </factorytypes>
 </object>
