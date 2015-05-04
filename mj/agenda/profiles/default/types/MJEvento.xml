@@ -23,7 +23,7 @@
   <element value="mjevento_view"/>
  </property>
  <property name="default_view_fallback">False</property>
- <alias from="(Default)" to="(dynamic view)"/>
+ <alias from="(Default)" to="mjevento_view"/>
  <alias from="edit" to="atct_edit"/>
  <alias from="sharing" to="@@sharing"/>
  <alias from="view" to="(selected layout)"/>
