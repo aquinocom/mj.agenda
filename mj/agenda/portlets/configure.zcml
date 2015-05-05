@@ -3,10 +3,16 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="mj.agenda">
 
-  <!-- Ensure Plone's portlets ZCML has already been processed;
-       without this, we may get a permission lookup error -->
-  <include package="plone.app.portlets" />
+    <!-- Ensure Plone's portlets ZCML has already been processed;
+    without this, we may get a permission lookup error -->
+    <include package="plone.app.portlets" />
 
-	<!-- -*- extra stuff goes here -*- -->
-
+    <!-- -*- extra stuff goes here -*- -->
+    <plone:portlet
+        name="mj.agenda.Calendar"
+        interface=".calendar.ICalendarPortlet"
+        assignment=".calendar.Assignment"
+        renderer=".calendar.Renderer"
+        addview=".calendar.AddForm"
+        />
 </configure>

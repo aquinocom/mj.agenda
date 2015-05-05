@@ -13,7 +13,7 @@ from Products.CMFCore.utils import getToolByName
 from plone.memoize.instance import memoize
 from plone.registry.interfaces import IRegistry
 from DateTime import DateTime
-import datetime
+from datetime import datetime, date, time
 from zope.i18nmessageid import MessageFactory
 from zope.component import queryUtility
 from zope.i18n.interfaces import ITranslationDomain
@@ -25,20 +25,37 @@ from mj.agenda import agendaMessageFactory as _
 from mj.agenda.interfaces.interfaces import IMJEvento
 
 
-
 class ListEventosView(BrowserView):
     """ view 
     """
 
     @memoize
+    def getRangeDate(self):
+        data = self.request.get('date', None)
+        try:
+            #start_date = DateTime(date + ' 00:00:00')
+            #end_date = DateTime(date + ' 23:59:59')
+            start_date = DateTime(data + ' 00:00:00 UTC')
+            end_date = DateTime(data + ' 23:59:59 UTC')
+            return (start_date, end_date)
+        except:
+            #start_date = DateTime(DateTime().Date() + ' 00:00:00')
+            #end_date = DateTime(DateTime().Date() + ' 23:59:59')
+            start_date = DateTime(DateTime().Date() + ' 00:00:00 UTC')
+            end_date = DateTime(DateTime().Date() + ' 23:59:59 UTC')
+            return (start_date, end_date)
+
+    @memoize
     def getEventos(self):
         """
         """
+        range_date = self.getRangeDate()
         catalog = getToolByName(self, 'portal_catalog')
         path_eventos = '/'.join(self.context.getPhysicalPath())
         eventos = catalog(object_provides=IMJEvento.__identifier__,
-                           path=path_eventos,
-                           sort_on='start',)
+                          start={'query': range_date, 'range': 'min:max'},
+                          path=path_eventos,
+                          sort_on='start',)
         return eventos
 
     def getDate(self):
@@ -48,7 +65,12 @@ class ListEventosView(BrowserView):
         if idioma == 'pt-br':
             idioma = 'pt_BR'
 
-        data = datetime.datetime.today()
+        data = self.request.get('date', None)
+        try:
+            data = data.split('/')
+            data = date(int(data[0]), int(data[1]), int(data[2]))
+        except:
+            data = datetime.today()
 
         translation = getToolByName(self.context, 'translation_service')
         PLMF = MessageFactory('plonelocales')
