@@ -24,6 +24,11 @@
                 <span class="agenda-dia" tal:content="view/getDate">
                         Sexta, 17 de Abril de 2015
                 </span>
+                <div class="fc-button fc-button-agendaDay ui-state-default" unselectable="on" style="-moz-user-select: none; float: right; clear: both;">
+                    <a tal:attributes="href string:${context/absolute_url}/solgemafullcalendar_view" style="border: none;">
+                        Calendário
+                    </a>
+                </div>
             </div>
             <ul class="list-compromissos" tal:condition="not:eventos">
               <li class="sem-compromisso item-compromisso">

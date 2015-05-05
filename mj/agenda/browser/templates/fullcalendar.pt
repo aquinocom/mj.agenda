@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="mj.agenda">
+    <head>
+        <metal:headslot metal:fill-slot="head_slot">
+            <link rel="stylesheet" tal:attributes="href string:${context/portal_url}/fullcalendar.css">
+            <link rel="stylesheet" tal:attributes="href string:${context/portal_url}/fullcalendar.print.css" media='print'>
+            <script tal:attributes="src string:${context/portal_url}/moment.min.js"></script>
+            <script tal:attributes="src string:${context/portal_url}/moment.min.js"></script>
+            <script tal:attributes="src string:${context/portal_url}/fullcalendar.min.js"></script>
+            <script tal:attributes="src string:${context/portal_url}/lang-all.js"></script>
+            <!--<link rel="stylesheet" href="http://fullcalendar.io/js/fullcalendar-2.3.1/fullcalendar.css">
+            <link rel="stylesheet" href="http://fullcalendar.io/js/fullcalendar-2.3.1/fullcalendar.print.css" media='print'>
+            <script src="http://fullcalendar.io/js/fullcalendar-2.3.1/lib/moment.min.js"></script>
+            <script src="http://fullcalendar.io/js/fullcalendar-2.3.1/lib/jquery.min.js"></script>
+            <script src="http://fullcalendar.io/js/fullcalendar-2.3.1/fullcalendar.min.js"></script>
+            <script src="http://fullcalendar.io/js/fullcalendar-2.3.1/lang-all.js"></script>-->
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#calendar').fullCalendar({
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,basicWeek,basicDay,agendaDay'
+                        },
+                        lang: 'pt-br',
+                        editable: true,
+                        eventLimit: true, // allow "more" link when too many events
+                        eventSources: [
+                            // your event source
+                            {
+                                url: 'jsonfullcalendar',
+                                type: 'POST',
+                                data: {
+                                    custom_param1: 'something',
+                                    custom_param2: 'somethingelse'
+                                },
+                                error: function() {
+                                    alert('there was an error while fetching events!');
+                                },
+                                color: 'yellow',   // a non-ajax option
+                                textColor: 'black' // a non-ajax option
+                            }
+                            // any other sources...
+                        ],
+                    });
+                    
+                });
+            </script>
+        </metal:headslot>
+    </head>
+    <body>
+        <tal:block metal:fill-slot="main">
+            <h1 tal:content="here/Title"></h1>
+            <div style="clear: both; float: right; border-width: 1px; border-style: solid; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; width: 50px; padding-left: 6px; padding-right: 3px; padding-top: 2px; height: 23px; background-color: rgb(245, 245, 245); background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(230, 230, 230)); box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 1px 2px rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);">
+                <a style="text-decoration: none; border: medium none; color: rgb(0, 0, 0); text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.75);"
+                   tal:attributes="href string:${context/absolute_url}/list_eventos">Agenda</a>
+            </div>
+            <div id='calendar'></div>
+        </tal:block>
+    </body>
+</html>

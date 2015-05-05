@@ -3,7 +3,9 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="mj.agenda">
 
-  <include package="plone.app.contentmenu" />
+    <include package="plone.app.contentmenu" />
+
+    <include package="z3c.jbot" file="meta.zcml" />
 
     <browser:resource
         name="color.js"
@@ -17,5 +19,22 @@
         permission="zope2.View"
     />
 
+    <browser:page
+        name="fullcalendar_mj"
+        for="*"
+        class=".fullcalendar.FullCalendarView"
+        template="templates/fullcalendar.pt"
+        permission="zope2.View"
+    />
+
+    <browser:page
+        name="jsonfullcalendar"
+        for="*"
+        class=".fullcalendar.JSONFullCalendarView"
+        permission="zope2.View"
+    />    
+
+    <browser:jbot
+        directory="templates"/>
     
 </configure>
