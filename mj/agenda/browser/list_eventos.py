@@ -68,7 +68,8 @@ class ListEventosView(BrowserView):
         data = self.request.get('date', None)
         try:
             data = data.split('/')
-            data = date(int(data[0]), int(data[1]), int(data[2]))
+            data = [int(i) for i in data]
+            data = date(data[0], data[1], data[2])
         except:
             data = datetime.today()
 
@@ -76,7 +77,11 @@ class ListEventosView(BrowserView):
         PLMF = MessageFactory('plonelocales')
         util = queryUtility(ITranslationDomain, 'plonelocales')
 
-        weekdayName = PLMF(translation.day_msgid(data.isoweekday()))
+        isoweekday = data.isoweekday()
+        if isoweekday == 7:
+            isoweekday = 0
+
+        weekdayName = PLMF(translation.day_msgid(isoweekday))
         weekday = util.translate(weekdayName, target_language=idioma)
 
         monthName = PLMF(translation.month_msgid(data.month))
