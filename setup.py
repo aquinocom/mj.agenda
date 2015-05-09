@@ -60,6 +60,7 @@ setup(name='mj.agenda',
                          'Products.ATVocabularyManager',
                          'archetypes.schemaextender',
                          'archetypes.schematuning',
+                         'simplejson',
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,

@@ -19,6 +19,18 @@
                         height: 15px;
                     } 
                 </style>
+                <script>
+                    jQuery(function($){
+                        // popin de plone
+                        $('.addfile').prepOverlay({
+                            subtype: 'ajax',
+                            filter: common_content_filter,
+                            formselector: 'form[name=edit_form]',
+                            noform: 'reload',
+                            closeselector: '[name="form.button.cancel"]'
+                        });
+                    });
+                </script>
                 <div class="eventDetails vcard">
                     <table class="vertical listing"
                         summary="Event details" i18n:attributes="summary summary_event_details;">
@@ -154,7 +166,12 @@
                                                         plone_view context/@@plone;"
                                             tal:condition="folderContents">
                                 <tr>
-                                    <th colspan="3" style="text-align: center;">Arquivos</th>
+                                    <th colspan="3" style="text-align: center;">Arquivos 
+                                        <a href="" class="addfile"
+                                            tal:attributes="href string:${context/absolute_url}/createObject?type_name=MJFileEvento">
+                                            <img src="fileMJ_icon.png" tal:attributes="src string:${context/portal_url}/fileMJ_icon.png" alt="Adicionar arquivo" />
+                                        </a>
+                                    </th>
                                 </tr>
                                 <tr style="background: none;" >
                                     <td colspan="3" style="background: none;">
@@ -164,6 +181,10 @@
                                                     <a tal:attributes="href item/getURL">
                                                         <img tal:replace="structure item_icon/html_tag" />
                                                         <span tal:replace="item/Title"/>
+                                                    </a>
+                                                    <a class="addfile" href="" 
+                                                        tal:attributes="href string:${item/getURL}/delete_confirmation">
+                                                        <img src="fileMJ_icon.png" tal:attributes="src string:${context/portal_url}/delete_icon.png" alt="Adicionar arquivo" />
                                                     </a>
                                                 </li>
                                             </tal:block>
