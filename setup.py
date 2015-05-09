@@ -61,6 +61,7 @@ setup(name='mj.agenda',
                          'archetypes.schemaextender',
                          'archetypes.schematuning',
                          'simplejson',
+                         'z3c.jbot',
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,
