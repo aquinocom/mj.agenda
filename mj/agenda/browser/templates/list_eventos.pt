@@ -38,7 +38,9 @@
                   </span>
               </li>
             </ul>
+
             <ul class="list-compromissos">
+
                 <tal:block tal:repeat="item eventos">
                     <li class="item-compromisso"
                         tal:define="categoria python:item.event_categoria;
@@ -52,17 +54,17 @@
                         </div>
                         <div class="comprimisso-dados">
                             <h4 class="comprimisso-titulo" tal:content="item/Title">Eduardo Braga</h4>
-                            <p class="comprimisso-participantes">
+                            <div class="comprimisso-participantes">
                                 <tal:block tal:repeat="pa item/attendees">
                                     <span tal:replace="pa"/><br/>   
                                 </tal:block>
-                            </p>
-                            <p class="comprimisso-local">
+                            </div>
+                            <div class="comprimisso-local">
                                 <label>Local:</label> Ministério da Justiça
-                            </p>
-                            <p>
+                            </div>
+                            <div>
                                 <div id="div_categoria" tal:attributes="style python:'background-color: ' + cor"></div>&nbsp;<span tal:replace="titulo"/>
-                            </p>
+                            </div>
                             <div style="clear: both;"></div>
                             <span class="download-compromisso">
                                 <a class="add-agenda vcal"
